@@ -1,0 +1,170 @@
+/* ═══════════════════════════════════════════════════
+   FinSuite Pro v3 — base.css
+   Design tokens, reset, layout shell, responsive
+   ═══════════════════════════════════════════════════ */
+
+/* ── Design Tokens ─────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --bg0: #050810; --bg1: #080c18; --bg2: #0c1220; --bg3: #111828;
+  --bg4: #162035; --bg5: #1e2a42; --bg6: #263450;
+
+  /* Borders */
+  --bdr:  rgba(255,255,255,0.06);
+  --bdr2: rgba(255,255,255,0.03);
+  --bdr-hi: rgba(255,255,255,0.12);
+
+  /* Brand */
+  --gold:     #c8a84b;
+  --gold2:    #e4c875;
+  --gold3:    rgba(200,168,75,0.15);
+  --gold4:    rgba(200,168,75,0.08);
+  --gold-bdr: rgba(200,168,75,0.3);
+
+  /* Semantic colours */
+  --teal:   #0ed2b0; --teal2:   rgba(14,210,176,0.12);
+  --rose:   #f05a7e; --rose2:   rgba(240,90,126,0.12);
+  --sky:    #5ba4f5; --sky2:    rgba(91,164,245,0.12);
+  --amber:  #f0a742; --amber2:  rgba(240,167,66,0.12);
+  --violet: #9b78f5; --violet2: rgba(155,120,245,0.12);
+
+  /* Text */
+  --t1: #e8eaf5; --t2: #8891b0; --t3: #4a5270; --t4: #2a3050;
+
+  /* Typography */
+  --fd: 'Playfair Display', Georgia, serif;
+  --fb: 'Syne', system-ui, sans-serif;
+  --fm: 'JetBrains Mono', monospace;
+
+  /* Radii */
+  --r1: 6px; --r2: 10px; --r3: 16px; --r4: 22px; --r5: 32px; --rf: 9999px;
+
+  /* Shadows */
+  --sh:      0 2px 16px rgba(0,0,0,.6), 0 1px 3px rgba(0,0,0,.4);
+  --sh2:     0 8px 48px rgba(0,0,0,.7);
+  --sh-gold: 0 0 32px rgba(200,168,75,.15);
+
+  /* Layout */
+  --nav-w: 248px;
+  --top-h: 58px;
+  --trans: .18s ease;
+}
+
+/* ── Light Theme Overrides ─────────────────────────── */
+[data-theme="light"] {
+  --bg0: #f2f4fb; --bg1: #e8ecf8; --bg2: #fff; --bg3: #f7f9ff;
+  --bg4: #eef1fa; --bg5: #e4e8f5; --bg6: #d8ddf0;
+  --bdr:    rgba(0,0,0,.07);
+  --bdr2:   rgba(0,0,0,.03);
+  --bdr-hi: rgba(0,0,0,.14);
+  --gold:     #9a7c20; --gold2:    #b8961e;
+  --gold3:    rgba(154,124,32,.1);
+  --gold4:    rgba(154,124,32,.05);
+  --gold-bdr: rgba(154,124,32,.28);
+  --t1: #1a2040; --t2: #4a5575; --t3: #8892b8; --t4: #c0c8e0;
+  --sh:      0 2px 12px rgba(0,0,0,.08);
+  --sh2:     0 8px 32px rgba(0,0,0,.12);
+  --sh-gold: 0 0 20px rgba(154,124,32,.1);
+}
+
+/* ── Reset ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 15px; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--fb);
+  background: var(--bg0);
+  color: var(--t1);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background var(--trans), color var(--trans);
+}
+
+/* ── Scrollbars ────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg1); }
+::-webkit-scrollbar-thumb { background: var(--bg5); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--t3); }
+
+/* ── Selection & Focus ─────────────────────────────── */
+::selection { background: var(--gold4); color: var(--gold2); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: var(--r1); }
+
+/* ── Typography ────────────────────────────────────── */
+h1, h2, h3, h4, h5 { font-family: var(--fd); line-height: 1.2; color: var(--t1); }
+p   { color: var(--t2); line-height: 1.7; }
+.num { font-family: var(--fm); letter-spacing: -.025em; }
+
+/* ── App Shell Layout ──────────────────────────────── */
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-col {
+  flex: 1;
+  margin-left: var(--nav-w);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left var(--trans);
+}
+
+.page-body {
+  flex: 1;
+  padding: 24px;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ── View System ────────────────────────────────────── */
+.view { display: none; animation: fadeSlide .26s ease both; }
+.view.on { display: block; }
+
+/* ── Keyframes ──────────────────────────────────────── */
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(7px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pop {
+  from { opacity: 0; transform: scale(.93); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes toastSlide {
+  from { opacity: 0; transform: translateX(110%); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes toastOut {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(110%); }
+}
+
+/* ── Mode Visibility ────────────────────────────────── */
+[data-mode="beginner"] .adv-only { display: none !important; }
+[data-mode="advanced"] .beg-only { display: none !important; }
+.sb-disabled { display: none !important; }
+
+/* ── Responsive Breakpoints ─────────────────────────── */
+@media (max-width: 1100px) {
+  .main-col { margin-left: 54px; }
+}
+
+@media (max-width: 900px) {
+  .kpi-row-3 { grid-template-columns: 1fr 1fr; }
+  .g3 { grid-template-columns: 1fr 1fr; }
+  .dash-bot { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .main-col { margin-left: 0; padding-bottom: 72px; }
+  .page-body { padding: 12px; }
+  .g2, .g3, .g4, .dash-main, .dash-bot { grid-template-columns: 1fr; }
+  .kpi-row-4, .kpi-row-3 { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .kpi-row-4, .kpi-row-3, .kpi-row-2 { grid-template-columns: 1fr; }
+}

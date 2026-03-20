@@ -1,0 +1,127 @@
+/* ═══════════════════════════════════════════════════
+   FinSuite Pro v3 — dashboard.css
+   Page-level layouts: KPI cards, section headers,
+   grids, charts, insights, onboarding, budget,
+   importer, payoff timeline, savings plan
+   ═══════════════════════════════════════════════════ */
+
+/* ── KPI Grid ───────────────────────────────────────── */
+.kpi-row   { display: grid; gap: 12px; margin-bottom: 20px; }
+.kpi-row-4 { grid-template-columns: repeat(4,1fr); }
+.kpi-row-3 { grid-template-columns: repeat(3,1fr); }
+.kpi-row-2 { grid-template-columns: repeat(2,1fr); }
+
+.kpi {
+  background: var(--bg2); border: 1px solid var(--bdr);
+  border-radius: var(--r3); padding: 16px 18px;
+  position: relative; overflow: hidden;
+  transition: all .2s; box-shadow: var(--sh);
+}
+.kpi::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--kc, var(--gold)); opacity: .85;
+}
+.kpi:hover { border-color: var(--gold-bdr); transform: translateY(-1px); }
+.kpi-lbl  { font-size: .67rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--t3); margin-bottom: 6px; }
+.kpi-val  { font-family: var(--fm); font-size: clamp(1.2rem,2.2vw,1.7rem); font-weight: 600; color: var(--t1); letter-spacing: -.03em; line-height: 1; }
+.kpi-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 7px; }
+.kpi-sub  { font-size: .68rem; font-weight: 600; padding: 2px 7px; border-radius: var(--rf); display: inline-flex; align-items: center; gap: 3px; }
+.kpi-up   { background: var(--teal2); color: var(--teal); }
+.kpi-dn   { background: var(--rose2); color: var(--rose); }
+.kpi-ne   { background: var(--bg5); color: var(--t3); }
+.kpi-ico  { width: 32px; height: 32px; background: var(--bg4); border-radius: var(--r2); display: flex; align-items: center; justify-content: center; font-size: .9rem; flex-shrink: 0; }
+
+/* ── Section Headers ─────────────────────────────────── */
+.sec-hdr { margin-bottom: 20px; }
+.sec-hdr h2 { font-size: clamp(1.2rem,2.8vw,1.65rem); display: flex; align-items: center; gap: 9px; }
+.sec-hdr h2 .ico { font-size: 1.1rem; color: var(--gold); }
+.sec-hdr p { font-size: .8rem; color: var(--t3); margin-top: 3px; }
+.sec-row { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+.sec-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+/* ── Page Grids ──────────────────────────────────────── */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+.g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+.dash-main { display: grid; grid-template-columns: 3fr 2fr; gap: 16px; margin-bottom: 18px; }
+.dash-bot  { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+
+@media (max-width: 1100px) {
+  .kpi-row-4 { grid-template-columns: repeat(2,1fr); }
+  .dash-main { grid-template-columns: 1fr; }
+  .dash-bot  { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── Charts ──────────────────────────────────────────── */
+.chart-wrap        { position: relative; width: 100%; }
+.chart-wrap canvas { max-height: 260px; }
+.chart-wrap.lg canvas { max-height: 340px; }
+.chart-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.cl-item { display: flex; align-items: center; gap: 5px; font-size: .7rem; color: var(--t2); }
+.cl-dot  { display: inline-block; width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── Insight Cards ───────────────────────────────────── */
+.ins-card { display: flex; gap: 11px; align-items: flex-start; padding: 11px 14px; background: var(--bg3); border: 1px solid var(--bdr); border-radius: var(--r2); transition: border-color var(--trans); }
+.ins-card:hover { border-color: var(--gold-bdr); }
+.ins-ico  { width: 32px; height: 32px; border-radius: var(--r2); display: flex; align-items: center; justify-content: center; font-size: .95rem; flex-shrink: 0; }
+.ins-ttl  { font-weight: 700; font-size: .8rem; color: var(--t1); margin-bottom: 2px; }
+.ins-dsc  { font-size: .75rem; color: var(--t2); line-height: 1.5; }
+.it-pos  .ins-ico { background: var(--teal2);   color: var(--teal); }
+.it-warn .ins-ico { background: var(--amber2);  color: var(--amber); }
+.it-bad  .ins-ico { background: var(--rose2);   color: var(--rose); }
+.it-info .ins-ico { background: var(--sky2);    color: var(--sky); }
+.it-gold .ins-ico { background: var(--gold4);   color: var(--gold2); }
+.it-vi   .ins-ico { background: var(--violet2); color: var(--violet); }
+
+/* ── Onboarding ──────────────────────────────────────── */
+.onboard { position: fixed; inset: 0; background: var(--bg0); z-index: 500; display: flex; align-items: center; justify-content: center; padding: 16px; }
+.onboard.off { display: none; }
+.ob-card { background: var(--bg2); border: 1px solid var(--gold-bdr); border-radius: var(--r5); padding: 40px 36px; max-width: 520px; width: 100%; box-shadow: var(--sh2), var(--sh-gold); animation: pop .4s cubic-bezier(.34,1.56,.64,1) both; }
+.ob-logo { font-size: 2.5rem; margin-bottom: 12px; }
+.ob-ttl  { font-family: var(--fd); font-size: 1.85rem; margin-bottom: 8px; color: var(--t1); }
+.ob-ttl em { color: var(--gold2); font-style: normal; }
+.ob-step { display: none; }
+.ob-step.on { display: block; }
+.ob-dots { display: flex; gap: 6px; justify-content: center; margin-bottom: 22px; }
+.ob-dot  { width: 7px; height: 7px; border-radius: 50%; background: var(--bg5); transition: all .2s; }
+.ob-dot.on { background: var(--gold); transform: scale(1.2); }
+.ob-mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+.ob-mode-card { padding: 16px; border: 2px solid var(--bdr); border-radius: var(--r3); cursor: pointer; transition: all .15s; text-align: center; }
+.ob-mode-card:hover { border-color: var(--gold-bdr); }
+.ob-mode-card.on { border-color: var(--gold); background: var(--gold4); }
+.ob-mode-ico  { font-size: 1.8rem; margin-bottom: 6px; }
+.ob-mode-ttl  { font-weight: 700; font-size: .85rem; color: var(--t1); margin-bottom: 3px; }
+.ob-mode-dsc  { font-size: .72rem; color: var(--t3); }
+
+/* ── Budget Planner Table ────────────────────────────── */
+.bud-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+.bud-table th { padding: 8px 12px; background: var(--bg1); border-bottom: 1px solid var(--bdr); font-size: .64rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--t3); text-align: left; white-space: nowrap; }
+.bud-table td { padding: 9px 12px; border-bottom: 1px solid var(--bdr2); vertical-align: middle; }
+.bud-table tr:last-child td { border-bottom: none; }
+.bud-table tr:hover td { background: var(--bg1); }
+.bud-total-row { background: var(--bg1) !important; }
+.bud-total-row td { font-weight: 700; color: var(--t1); border-top: 1px solid var(--bdr); }
+.bud-cell-inp { width: 100%; background: transparent; border: none; color: var(--t1); font-family: var(--fm); font-size: .8rem; text-align: right; padding: 3px 6px; border-radius: var(--r1); transition: background var(--trans); }
+.bud-cell-inp:focus { outline: none; background: var(--bg4); }
+.bud-var-pos { color: var(--teal); font-family: var(--fm); font-size: .78rem; }
+.bud-var-neg { color: var(--rose); font-family: var(--fm); font-size: .78rem; }
+
+/* ── Import / Drop Zone ──────────────────────────────── */
+.drop-zone { border: 2px dashed var(--bdr-hi); border-radius: var(--r3); padding: 36px 20px; text-align: center; cursor: pointer; transition: all .2s; background: var(--bg1); }
+.drop-zone:hover,
+.drop-zone.drag-over { border-color: var(--gold); background: var(--gold4); }
+.drop-zone-ico  { font-size: 2.2rem; margin-bottom: 10px; color: var(--t3); }
+.drop-zone-ttl  { font-weight: 700; font-size: .9rem; color: var(--t2); margin-bottom: 4px; }
+.drop-zone-dsc  { font-size: .75rem; color: var(--t3); }
+.import-preview { background: var(--bg1); border: 1px solid var(--bdr); border-radius: var(--r2); margin-top: 14px; overflow: hidden; }
+.import-preview-hdr { padding: 10px 14px; border-bottom: 1px solid var(--bdr); font-size: .75rem; font-weight: 700; color: var(--t2); display: flex; align-items: center; justify-content: space-between; }
+.col-map { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 14px; }
+
+/* ── Debt Payoff Timeline ────────────────────────────── */
+.pf-step { display: flex; gap: 12px; align-items: flex-start; padding-bottom: 12px; }
+.pf-dot  { width: 10px; height: 10px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 3px; position: relative; z-index: 1; }
+.pf-line { position: absolute; left: 4px; top: 13px; width: 1px; height: calc(100% + 12px); background: var(--bdr); }
+
+/* ── Savings Plan Monthly Grid ───────────────────────── */
+.sp-inp { width: 100%; background: transparent; border: none; color: var(--t1); font-family: var(--fm); font-size: .75rem; text-align: right; padding: 0; transition: background .12s; }
+.sp-inp:focus { outline: none; background: var(--bg4); border-radius: 2px; }

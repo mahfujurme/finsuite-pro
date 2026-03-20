@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-mode="advanced">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FinSuite Pro v3 — Advanced personal finance planning system">
+  <title>FinSuite Pro v3</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Syne:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+<!-- ══ ONBOARDING ══════════════════════════════════════════ -->
+<div class="onboard" id="ob">
+  <div class="ob-card">
+    <div class="ob-logo">💰</div>
+    <h1 class="ob-ttl">Welcome to <em>FinSuite</em> Pro</h1>
+    <p style="font-size:.88rem;color:var(--t2);margin-bottom:20px;line-height:1.7">
+      Your all-in-one advanced financial planning system.<br>Let's get you set up in two quick steps.
+    </p>
+
+    <div class="ob-dots">
+      <div class="ob-dot on" id="ob-d0"></div>
+      <div class="ob-dot"    id="ob-d1"></div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="ob-step on" id="ob-s0">
+      <div class="frow">
+        <div class="fg">
+          <label class="flbl">Your Name</label>
+          <input class="finp" id="ob-name" placeholder="e.g. Alex" maxlength="40">
+        </div>
+        <div class="fg">
+          <label class="flbl">Currency</label>
+          <select class="finp" id="ob-cur">
+            <option value="GBP,£">🇬🇧 Pound (£)</option>
+            <option value="USD,$">🇺🇸 Dollar ($)</option>
+            <option value="EUR,€">🇪🇺 Euro (€)</option>
+            <option value="JPY,¥">🇯🇵 Yen (¥)</option>
+            <option value="CAD,CA$">🇨🇦 CAD</option>
+            <option value="AUD,A$">🇦🇺 AUD</option>
+            <option value="INR,₹">🇮🇳 INR</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-gold btn-full" style="margin-top:8px" data-action="ob-next">
+        Continue →
+      </button>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="ob-step" id="ob-s1">
+      <p style="font-size:.82rem;color:var(--t2);margin-bottom:12px">Choose your experience level:</p>
+      <div class="ob-mode-grid">
+        <div class="ob-mode-card" id="ob-m-beg" data-action="ob-mode" data-value="beginner">
+          <div class="ob-mode-ico">🌱</div>
+          <div class="ob-mode-ttl">Beginner</div>
+          <div class="ob-mode-dsc">Simple view, essential features, no jargon</div>
+        </div>
+        <div class="ob-mode-card on" id="ob-m-adv" data-action="ob-mode" data-value="advanced">
+          <div class="ob-mode-ico">🚀</div>
+          <div class="ob-mode-ttl">Advanced</div>
+          <div class="ob-mode-dsc">Full suite: debt simulation, forecasting, budgets</div>
+        </div>
+      </div>
+      <p style="font-size:.72rem;color:var(--t3);margin:10px 0">
+        🔒 Sample data loads automatically. All data stays on your device — never sent anywhere.
+      </p>
+      <button class="btn btn-gold btn-full" data-action="ob-finish">
+        Get Started →
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ APP SHELL ═══════════════════════════════════════════ -->
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="sb-brand">
+      <div class="sb-gem" aria-hidden="true">💰</div>
+      <div>
+        <div class="sb-name">Fin<em>Suite</em> <sup>Pro v3</sup></div>
+      </div>
+    </div>
+
+    <div class="sb-scroll" id="sb-nav" role="list">
+      <div class="sb-group-lbl">Overview</div>
+      <button class="sb-btn on" data-nav="dash" data-action="nav" data-view="dash" role="listitem" aria-label="Dashboard">
+        <span class="sb-ico" aria-hidden="true">📊</span>
+        <span class="sb-lbl">Dashboard</span>
+      </button>
+
+      <div class="sb-group-lbl">Finance</div>
+      <button class="sb-btn" data-nav="tx"  data-action="nav" data-view="tx"  role="listitem" aria-label="Transactions">
+        <span class="sb-ico" aria-hidden="true">💳</span>
+        <span class="sb-lbl">Transactions</span>
+      </button>
+      <button class="sb-btn" data-nav="imp" data-action="nav" data-view="imp" role="listitem" aria-label="Import Data">
+        <span class="sb-ico" aria-hidden="true">📂</span>
+        <span class="sb-lbl">Import Data</span>
+        <span class="sb-badge new" aria-label="New feature">New</span>
+      </button>
+      <button class="sb-btn" data-nav="bud" data-action="nav" data-view="bud" role="listitem" aria-label="Budget Planner">
+        <span class="sb-ico" aria-hidden="true">🗂️</span>
+        <span class="sb-lbl">Budget Planner</span>
+      </button>
+      <button class="sb-btn" data-nav="nw"  data-action="nav" data-view="nw"  role="listitem" aria-label="Net Worth">
+        <span class="sb-ico" aria-hidden="true">🏦</span>
+        <span class="sb-lbl">Net Worth</span>
+      </button>
+
+      <div class="sb-group-lbl adv-only">Planning</div>
+      <button class="sb-btn adv-only" data-nav="debt" data-action="nav" data-view="debt" id="nav-debt" role="listitem" aria-label="Debt Planner">
+        <span class="sb-ico" aria-hidden="true">🔗</span>
+        <span class="sb-lbl">Debt Planner</span>
+      </button>
+      <button class="sb-btn adv-only" data-nav="save" data-action="nav" data-view="save" id="nav-save" role="listitem" aria-label="Savings Plan">
+        <span class="sb-ico" aria-hidden="true">💎</span>
+        <span class="sb-lbl">Savings Plan</span>
+      </button>
+      <button class="sb-btn adv-only" data-nav="subs" data-action="nav" data-view="subs" id="nav-subs" role="listitem" aria-label="Subscriptions">
+        <span class="sb-ico" aria-hidden="true">🔄</span>
+        <span class="sb-lbl">Subscriptions</span>
+      </button>
+      <button class="sb-btn adv-only" data-nav="fore" data-action="nav" data-view="fore" id="nav-fore" role="listitem" aria-label="Forecast">
+        <span class="sb-ico" aria-hidden="true">📈</span>
+        <span class="sb-lbl">Forecast</span>
+      </button>
+
+      <div class="sb-group-lbl">System</div>
+      <button class="sb-btn" data-nav="cfg" data-action="nav" data-view="cfg" role="listitem" aria-label="Settings">
+        <span class="sb-ico" aria-hidden="true">⚙️</span>
+        <span class="sb-lbl">Settings</span>
+      </button>
+    </div>
+
+    <div class="sb-foot">
+      <div class="sb-user" data-action="nav" data-view="cfg" role="button" tabindex="0" aria-label="Open settings">
+        <div class="sb-avatar" id="sb-av" aria-hidden="true">U</div>
+        <div>
+          <div class="sb-uname" id="sb-un">User</div>
+          <div class="sb-urole"><span class="mode-chip" id="mode-chip">Advanced</span></div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN COLUMN -->
+  <div class="main-col">
+
+    <!-- Topbar -->
+    <header class="topbar" role="banner">
+      <div class="topbar-left">
+        <div class="topbar-ttl">
+          <span class="ttico" id="pg-ico" aria-hidden="true">📊</span>
+          <span id="pg-ttl">Dashboard</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="top-btn" id="theme-btn" data-action="theme" title="Toggle theme" aria-label="Toggle colour theme">☀️</button>
+        <button class="btn btn-outline btn-sm" data-action="quick-add">+ Quick Add</button>
+        <button class="btn btn-gold    btn-sm" data-action="nav" data-view="imp">📂 Import</button>
+      </div>
+    </header>
+
+    <!-- View panes — only .on is visible -->
+    <main class="page-body" role="main">
+      <div id="v-dash" class="view on"  aria-label="Dashboard"></div>
+      <div id="v-tx"   class="view"     aria-label="Transactions"></div>
+      <div id="v-imp"  class="view"     aria-label="Import Data"></div>
+      <div id="v-bud"  class="view"     aria-label="Budget Planner"></div>
+      <div id="v-nw"   class="view"     aria-label="Net Worth"></div>
+      <div id="v-debt" class="view"     aria-label="Debt Planner"></div>
+      <div id="v-save" class="view"     aria-label="Savings Plan"></div>
+      <div id="v-subs" class="view"     aria-label="Subscriptions"></div>
+      <div id="v-fore" class="view"     aria-label="Forecast"></div>
+      <div id="v-cfg"  class="view"     aria-label="Settings"></div>
+    </main>
+  </div><!-- /main-col -->
+</div><!-- /app-shell -->
+
+<!-- MODAL OVERLAY (single shared overlay for all modules) -->
+<div class="modal-veil off" id="mveil" role="dialog" aria-modal="true" aria-labelledby="m-ttl">
+  <div class="modal" id="mbox">
+    <div class="modal-hdr">
+      <div class="modal-ttl" id="m-ttl">Modal</div>
+      <button class="modal-x" data-action="modal-close" aria-label="Close modal">✕</button>
+    </div>
+    <div class="modal-body" id="m-body"></div>
+    <div class="modal-foot" id="m-foot"></div>
+  </div>
+</div>
+
+<!-- TOAST NOTIFICATIONS -->
+<div class="toast-stack" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+<!-- Entry point — ES Module -->
+<script type="module" src="js/app.js"></script>
+
+</body>
+</html>
